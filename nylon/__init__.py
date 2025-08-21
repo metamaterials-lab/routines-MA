@@ -12,19 +12,19 @@ def process():
     from utils.Processor import parse_data
 
     ### COMPRESSION LDFJ ###
-    with Shimadzu( concat( "./data/Compression-Cyl/data/samples.csv" ), concat( "./data/Compression-Cyl/dimensions.csv" ) ) as data:
+    with Shimadzu( concat( "data/Compression-Cyl/data/samples.csv" ), concat( "data/Compression-Cyl/dimensions.csv" ) ) as data:
         parse_data( data, concat( "./results/Compression-Cyl/result_{}.csv" ), CS_SHAPES.CIRCLE, ExperimentTypes.TENSILE )
 
     ### COMPRESSION VC ###
-    with Shimadzu( concat( "./data/Compression-Cyl-VC/data/samples.csv" ), concat( "./data/Compression-Cyl-VC/dimensions.csv" ) ) as data:
+    with Shimadzu( concat( "data/Compression-Cyl-VC/data/samples.csv" ), concat( "data/Compression-Cyl-VC/dimensions.csv" ) ) as data:
         parse_data( data, concat( "./results/Compression-Cyl-VC/result_{}.csv" ), CS_SHAPES.CIRCLE, ExperimentTypes.TENSILE )
 
-    with Shimadzu( concat( "./data/Compression-Cube-VC/data/samples.csv" ), concat( "./data/Compression-Cube-VC/dimensions.csv" ) ) as data:
-        parse_data( data, concat( "./results/Compression-Cube-VC/result_{}.csv" ), CS_SHAPES.RECTANGLE, ExperimentTypes.TENSILE )
+    with Shimadzu( concat( "data/Compression-Cube-VC/data/samples.csv" ), concat( "data/Compression-Cube-VC/dimensions.csv" ) ) as data:
+        parse_data( data, concat( "results/Compression-Cube-VC/result_{}.csv" ), CS_SHAPES.RECTANGLE, ExperimentTypes.TENSILE )
 
     ### BENDING LDFJ ###
-    with Instron( concat( "./data/D790-Bending/data/" ), concat( "./data/D790-Bending/dimensions.csv" ) ) as data:
-        parse_data( data, concat( "./results/D790-Bending/result_{}.csv" ), CS_SHAPES.RECTANGLE, ExperimentTypes.BENDING )
+    with Instron( concat( "data/D790-Bending/data/" ), concat( "data/D790-Bending/dimensions.csv" ) ) as data:
+        parse_data( data, concat( "results/D790-Bending/result_{}.csv" ), CS_SHAPES.RECTANGLE, ExperimentTypes.BENDING )
 
 def plot():
     from utils.Processor.DataReader import DataReader
@@ -33,7 +33,7 @@ def plot():
     from utils.Plotter.Templates.PlotTemplates import PlotTemplates
 
     ### COMPRESSION LDFJ ###
-    with DataReader( "./results/Compression-Cyl/", ExperimentTypes.TENSILE ) as data:
+    with DataReader( concat( "results/Compression-Cyl/" ), ExperimentTypes.TENSILE ) as data:
         plt = Plotter( data )
 
         template = PlotTemplates.SimplePlot(
@@ -57,7 +57,8 @@ def plot():
         plt.figure( "90deg" )
         plt.plot( Plotter.ENGINEER, template, [ 10,11,12,13,14 ] )
 
-        plt.savefigs( "./results/figs/fig_{0}.png" )
+        plt.savefigs( concat("results/figs/fig_{0}.svg") )
+        plt.savefigs( concat("results/figs/fig_{0}.jpeg") )
 
 def analyze():
     pass
